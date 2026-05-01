@@ -3,9 +3,9 @@ import { useState } from "react";
 import Logo from "./Logo";
 import "./styles/Login.css";
 
-const Login = () => {
+const Login = ({ setIsLoggedIn, handleLogin }) => {
   const [data, setData] = useState({
-    username: "",
+    identifier: "",
     password: "",
   });
 
@@ -17,6 +17,11 @@ const Login = () => {
     }));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin(data);
+  };
+
   return (
     <div className="login">
       <Logo title={"CryptoDucks"} />
@@ -24,14 +29,14 @@ const Login = () => {
         This app contains highly sensitive information. Please sign in or
         register to access CryptoDucks.
       </p>
-      <form className="login__form">
-        <label htmlFor="username">Login:</label>
+      <form className="login__form" onSubmit={handleSubmit}>
+        <label htmlFor="identifier">Login:</label>
         <input
-          id="username"
+          id="identifier"
           required
-          name="username"
+          name="identifier"
           type="text"
-          value={data.username}
+          value={data.identifier}
           onChange={handleChange}
         />
         <label htmlFor="password">Password:</label>
